@@ -8,6 +8,7 @@ import AddToys from "../Pages/AddToys/AddToys";
 import Blogs from "../Pages/Blogs/Blogs";
 import Login from "../Pages/Login/Login";
 import SignUp from "../Pages/SignUp/SignUp";
+import Profile from "../Pages/Profile/Profile";
 
 const router = createBrowserRouter([
     {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
             {
                 path: 'sign-up',
                 element: <SignUp />
+            },
+            {
+                path: 'profile',
+                element: <Profile />
             },
 
         ]

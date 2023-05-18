@@ -1,14 +1,28 @@
 import { Link } from "react-router-dom";
 import ActiveLink from "../../ActiveLink/ActiveLink";
+import { useContext } from "react";
+import { UserProvider } from "../../Hook/ContextProvider/UserContext";
 
 const Navbar = () => {
+    const { user, logOut } = useContext(UserProvider);
     const routeLinks = <>
         <li className="mx-3 hover:text-rose-600"><ActiveLink to="/">Home</ActiveLink></li>
         <li className="mx-3 hover:text-rose-600"><ActiveLink to="/all-toys">All Toys</ActiveLink></li>
-        <li className="mx-3 hover:text-rose-600"><ActiveLink to="/my-toys">My Toys</ActiveLink></li>
-        <li className="mx-3 hover:text-rose-600"><ActiveLink to="/add-toys">Add Toys</ActiveLink></li>
+        {
+            user &&
+            <>
+                <li className="mx-3 hover:text-rose-600"><ActiveLink to="/my-toys">My Toys</ActiveLink></li>
+                <li className="mx-3 hover:text-rose-600"><ActiveLink to="/add-toys">Add Toys</ActiveLink></li>
+            </>
+        }
         <li className="mx-3 hover:text-rose-600"><ActiveLink to="/blogs">Blog</ActiveLink></li>
     </>
+
+    // const handleSignOut = () => {
+    //     logOut()
+    //         .then(() => { })
+    //         .catch(() => { })
+    // }
 
     return (
         // full width navbar
@@ -17,7 +31,7 @@ const Navbar = () => {
             <div className="lg:max-w-screen-xl lg:mx-auto flex justify-between items-center py-2">
                 {/* website name */}
                 <div>
-                    <Link to="fkdkf"><h1 className="text-pink-500 text-3xl font-bold font-serif">Kids Paradise</h1></Link>
+                    <Link to="/"><h1 className="text-pink-500 text-3xl font-bold font-serif">Kids Paradise</h1></Link>
                 </div>
                 {/* routes */}
                 <div className="flex items-center">
@@ -45,10 +59,24 @@ const Navbar = () => {
                     </nav> */}
                 </div>
                 {/* profile, login and sign up */}
-                <div className="flex items-center">
-                    <Link to="/login"><button className="btn btn-outline btn-error mr-3">Login</button></Link>
-                    <Link to="/sign-up"><button className="btn btn-outline btn-error">Sign Up</button></Link>
-                </div>
+                {user ?
+
+                    <Link to="profile">
+                        <div className="avatar">
+                            {/* <div className="tooltip" data-tip={user?.displayname}> */}
+                            <div className="w-12 h-12 rounded-full" >
+                                <img className="w-12 h-12" src={user?.photoURL} alt="" />
+                            </div>
+                            {/* <button className="btn" onClick={handleSignOut}>LogOut</button> */}
+                            {/* </div> */}
+                        </div>
+                    </Link>
+                    :
+                    <div className="flex items-center">
+                        <Link to="/login"><button className="btn btn-outline btn-error mr-3">Login</button></Link>
+                        <Link to="/sign-up"><button className="btn btn-outline btn-error">Sign Up</button></Link>
+                    </div>
+                }
             </div>
         </div>
     );
