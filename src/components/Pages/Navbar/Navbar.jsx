@@ -18,11 +18,11 @@ const Navbar = () => {
         <li className="mx-3 hover:text-rose-600"><ActiveLink to="/blogs">Blog</ActiveLink></li>
     </>
 
-    // const handleSignOut = () => {
-    //     logOut()
-    //         .then(() => { })
-    //         .catch(() => { })
-    // }
+    const handleSignOut = () => {
+        logOut()
+            .then(() => { })
+            .catch(() => { })
+    }
 
     return (
         // full width navbar
@@ -60,17 +60,17 @@ const Navbar = () => {
                 </div>
                 {/* profile, login and sign up */}
                 {user ?
-
-                    <Link to="profile">
-                        <div className="avatar">
-                            {/* <div className="tooltip" data-tip={user?.displayname}> */}
-                            <div className="w-12 h-12 rounded-full" >
-                                <img className="w-12 h-12" src={user?.photoURL} alt="" />
+                    <div className="flex items-center">
+                        <Link to="profile">
+                            <div className="avatar">
+                                <div className="w-12 h-12 rounded-full" >
+                                    <img className="w-14 h-14" src={user?.photoURL} alt="" />
+                                </div>
                             </div>
-                            {/* <button className="btn" onClick={handleSignOut}>LogOut</button> */}
-                            {/* </div> */}
-                        </div>
-                    </Link>
+                        </Link>
+                        <button className="btn ms-3" onClick={handleSignOut}>LogOut</button>
+                    </div>
+
                     :
                     <div className="flex items-center">
                         <Link to="/login"><button className="btn btn-outline btn-error mr-3">Login</button></Link>
@@ -78,7 +78,7 @@ const Navbar = () => {
                     </div>
                 }
             </div>
-        </div>
+        </div >
     );
 };
 
