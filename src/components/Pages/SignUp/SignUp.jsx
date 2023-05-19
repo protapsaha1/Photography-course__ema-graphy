@@ -3,11 +3,12 @@ import signUp from '../../../assets/images/signUp.avif';
 import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { UserProvider } from '../../Hook/ContextProvider/UserContext';
+import Swal from 'sweetalert2';
 
 const SignUp = () => {
-    const { googleLogin, createUserByEmail } = useContext(UserProvider);
+    const { googleLogin, createUserByEmail, userUpdate } = useContext(UserProvider);
     const [show, setShow] = useState(false);
-
+    const [error, SetError] = useState("");
 
     const handleSignUp = event => {
         event.preventDefault();
@@ -16,21 +17,44 @@ const SignUp = () => {
         const email = form.email.value;
         const password = form.password.value;
         const photo = form.photo.value;
-        console.log(email, password, photo, name)
+       
+
+        if (password.length === 6) {
+            SetError("Provide your password at least 6 character")
+        }
+
 
         createUserByEmail(email, password)
             .then(result => {
-                console.log(result.user)
+                console.log(result.user);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'You successful sign Up',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             })
             .catch(error => {
-                console.log(error.message)
+                console.log(error.message);
+            })
+
+        userUpdate(name, photo)
+            .then(() => { })
+            .catch(error => {
+                console.log(error.message);
             })
     };
 
     const handleGoogle = () => {
         googleLogin()
             .then(result => {
-                console.log(result.user)
+                console.log(result.user);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Login successful!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             })
             .catch(error => {
                 console.log(error.message)
@@ -78,6 +102,7 @@ const SignUp = () => {
                                     }
                                 </span>
                             </label>
+                            <p className='text-red-500 text-lg'>{error}</p>
                         </div>
                         <input className='btn btn-info text-white text-xl font-semibold text-center my-10 w-full shadow-xl' type="submit" value="Sign Up " />
                         <p className='text-white text-center text-lg'>Have an account in Kids Paradise ? Please <Link className='text-yellow-700 text-xl font-semibold hover:underline' to="/login">Login</Link></p>

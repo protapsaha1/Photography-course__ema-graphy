@@ -26,9 +26,9 @@ const Navbar = () => {
 
     return (
         // full width navbar
-        <div className="bg-white h-16">
+        <div className="bg-white h-20 shadow-2xl">
             {/* fixed width middle nav */}
-            <div className="lg:max-w-screen-xl lg:mx-auto flex justify-between items-center py-2">
+            <div className="lg:max-w-screen-xl lg:mx-auto flex justify-between items-center py-4">
                 {/* website name */}
                 <div>
                     <Link to="/"><h1 className="text-pink-500 text-3xl font-bold font-serif">Kids Paradise</h1></Link>
