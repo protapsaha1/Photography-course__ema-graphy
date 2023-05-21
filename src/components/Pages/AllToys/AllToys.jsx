@@ -67,7 +67,7 @@ const AllToys = () => {
 
     return (
         <div className="bg-slate-50">
-            <h1>my toy : {allToys.length}</h1>
+            {/* <h1>my toy : {allToys.length}</h1> */}
             <div className="mx-10 py-10">
 
                 {/* {setSpinner(false)} */}
