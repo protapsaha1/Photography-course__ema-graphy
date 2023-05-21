@@ -1,14 +1,19 @@
 import { useContext, useState } from 'react';
-import signUp from '../../../assets/images/signUp.avif';
+import signUp from '../../../assets/images/image_processing20190913-24861-7w6uy2.gif';
 import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { UserProvider } from '../../Hook/ContextProvider/UserContext';
 import Swal from 'sweetalert2';
+import useTitle from '../../CustomHook/useTitle';
 
 const SignUp = () => {
+    useTitle('SignUp');
     const { googleLogin, createUserByEmail, userUpdate } = useContext(UserProvider);
     const [show, setShow] = useState(false);
     const [error, SetError] = useState("");
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
 
     const handleSignUp = event => {
         event.preventDefault();
@@ -17,9 +22,9 @@ const SignUp = () => {
         const email = form.email.value;
         const password = form.password.value;
         const photo = form.photo.value;
-       
 
-        if (password.length === 6) {
+
+        if (password.length == 6) {
             SetError("Provide your password at least 6 character")
         }
 
@@ -33,6 +38,7 @@ const SignUp = () => {
                     showConfirmButton: false,
                     timer: 1500
                 })
+                form.reset();
             })
             .catch(error => {
                 console.log(error.message);
@@ -54,7 +60,8 @@ const SignUp = () => {
                     title: 'Login successful!',
                     showConfirmButton: false,
                     timer: 1500
-                })
+                });
+                navigate(from, { replace: true })
             })
             .catch(error => {
                 console.log(error.message)
@@ -63,7 +70,7 @@ const SignUp = () => {
     return (
         <div className='flex w-full'>
             <div className=' w-1/2'>
-                <img src={signUp} alt="" />
+                <img className='w-full h-[800px]' src={signUp} alt="" />
             </div>
             <div className='w-1/2 bg-green-400'>
                 <div className='max-w-xl mx-auto mt-10 '>

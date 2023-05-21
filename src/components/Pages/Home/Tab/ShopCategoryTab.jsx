@@ -1,21 +1,26 @@
-// import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
+// // import { useEffect, useState } from "react";
+// // import CategoryInTab from "./CategoryInTab";
 
 
 // const ShopCategoryTab = () => {
-//     return (
-//         // <Tabs>
-//         //     <TabList>
-//         //         <Tab>Title 1</Tab>
-//         //         <Tab>Title 2</Tab>
-//         //     </TabList>
+//     // const [categoryTabs, setCategoryTabs] = useState([]);
 
-//         //     <TabPanel>
-//         //         <h2>Any content 1</h2>
-//         //     </TabPanel>
-//         //     <TabPanel>
-//         //         <h2>Any content 2</h2>
-//         //     </TabPanel>
-//         // </Tabs>
+//     // useEffect(() => {
+//     //     fetch(`http://localhost:5001/allToys`)
+//     //         .then(res => res.json())
+//     //         .then(data => setCategoryTabs(data))
+//     // }, []);
+//     // console.log(categoryTabs)
+//     return (
+//         // <>
+//         //     {
+//         //         categoryTabs.map(categoryTab => <CategoryInTab
+//         //             key={categoryTab._id}
+//         //             categoryTab={categoryTab}
+//         //         ></CategoryInTab>)
+//         //     }
+//         // </>
+
 //     );
 // };
 

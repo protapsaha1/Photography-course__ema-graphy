@@ -1,9 +1,14 @@
+import useTitle from '../../../CustomHook/useTitle';
 import Banner from '../Banner/Banner';
 import Gallery from '../Gallery/Gallery';
 // import ShopCategoryTab from '../Tab/ShopCategoryTab';
 
 
+
 const Home = () => {
+    useTitle('Home');
+
+
     return (
         <div className='bg-slate-50 h-full'>
             {/* slider */}
@@ -12,13 +17,13 @@ const Home = () => {
             </div>
 
             {/* gallery */}
-            <div className='mx-auto max-w-screen-xl my-10'>
+            <div className='mx-auto max-w-screen-xl py-10'>
                 <Gallery></Gallery>
             </div>
 
             {/* shop category */}
             <div>
-                {/* <ShopCategoryTab></ShopCategoryTab> */} 
+                {/* <ShopCategoryTab></ShopCategoryTab> */}
                 {/* not done tab*/}
             </div>
         </div>

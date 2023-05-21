@@ -9,6 +9,10 @@ import Blogs from "../Pages/Blogs/Blogs";
 import Login from "../Pages/Login/Login";
 import SignUp from "../Pages/SignUp/SignUp";
 import Profile from "../Pages/Profile/Profile";
+import ToyDetails from "../Pages/ToyDetails/ToyDetails";
+// import ToyCategory from "../Pages/ToyDetails/ToyCategory";
+import UpdateToy from "../Pages/UpdateToy/UpdateToy";
+import PrivateRoute from "../UserAccessOnly/PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -18,17 +22,21 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home />
+
             },
             {
-                path: 'all-toys',
-                element: <AllToys />
+                path: 'allToys',
+                element: <AllToys />,
+                loader: () => fetch('http://localhost:5001/totalToys')
+
             },
             {
-                path: 'my-toys',
-                element: <MyToys />
+                path: 'myToys',
+                element: <MyToys />,
+                loader: () => fetch('http://localhost:5001/allToys')
             },
             {
-                path: 'add-toys',
+                path: 'addToys',
                 element: <AddToys />
             },
             {
@@ -40,13 +48,27 @@ const router = createBrowserRouter([
                 element: <Login />
             },
             {
-                path: 'sign-up',
+                path: 'signUp',
                 element: <SignUp />
             },
             {
                 path: 'profile',
                 element: <Profile />
             },
+            {
+                path: 'toyDetails/:id',
+                element: <PrivateRoute><ToyDetails /></PrivateRoute>,
+                loader: ({ params }) => fetch(`http://localhost:5001/allToys/${params.id}`)
+            },
+            {
+                path: 'update/:id',
+                element: <UpdateToy />,
+                loader: ({ params }) => fetch(`http://localhost:5001/allToys/${params.id}`)
+            },
+            // {
+            //     path: 'sub-category',
+            //     element: <ToyCategory />
+            // }
 
         ]
     },

@@ -7,12 +7,12 @@ const Navbar = () => {
     const { user, logOut } = useContext(UserProvider);
     const routeLinks = <>
         <li className="mx-3 hover:text-rose-600"><ActiveLink to="/">Home</ActiveLink></li>
-        <li className="mx-3 hover:text-rose-600"><ActiveLink to="/all-toys">All Toys</ActiveLink></li>
+        <li className="mx-3 hover:text-rose-600"><ActiveLink to="/allToys">All Toys</ActiveLink></li>
         {
             user &&
             <>
-                <li className="mx-3 hover:text-rose-600"><ActiveLink to="/my-toys">My Toys</ActiveLink></li>
-                <li className="mx-3 hover:text-rose-600"><ActiveLink to="/add-toys">Add Toys</ActiveLink></li>
+                <li className="mx-3 hover:text-rose-600"><ActiveLink to="/myToys">My Toys</ActiveLink></li>
+                <li className="mx-3 hover:text-rose-600"><ActiveLink to="/addToys">Add Toys</ActiveLink></li>
             </>
         }
         <li className="mx-3 hover:text-rose-600"><ActiveLink to="/blogs">Blog</ActiveLink></li>
@@ -20,7 +20,9 @@ const Navbar = () => {
 
     const handleSignOut = () => {
         logOut()
-            .then(() => { })
+            .then(() => {
+                localStorage.removeItem('kids-paradise-access');
+            })
             .catch(() => { })
     }
 
@@ -74,7 +76,7 @@ const Navbar = () => {
                     :
                     <div className="flex items-center">
                         <Link to="/login"><button className="btn btn-outline btn-error mr-3">Login</button></Link>
-                        <Link to="/sign-up"><button className="btn btn-outline btn-error">Sign Up</button></Link>
+                        <Link to="/signUp"><button className="btn btn-outline btn-error">Sign Up</button></Link>
                     </div>
                 }
             </div>

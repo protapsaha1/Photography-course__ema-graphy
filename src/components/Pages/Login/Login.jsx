@@ -1,13 +1,18 @@
 import { useContext, useRef, useState } from 'react';
-import login from '../../../assets/images/login.avif';
+import login from '../../../assets/images/login.gif';
 import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { UserProvider } from '../../Hook/ContextProvider/UserContext';
 import Swal from 'sweetalert2';
+import useTitle from '../../CustomHook/useTitle';
 const Login = () => {
+    useTitle('Login')
     const { googleLogin, loginUserByEmail, resetPassword } = useContext(UserProvider);
     const [show, setShow] = useState(false);
     const emailRef = useRef();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
 
 
 
@@ -19,13 +24,30 @@ const Login = () => {
 
         loginUserByEmail(email, password)
             .then(result => {
-                console.log(result.user);
+                const user = result.user;
                 Swal.fire({
                     icon: 'success',
                     title: 'Login successful',
                     showConfirmButton: false,
                     timer: 1500
+                });
+                const validUser = {
+                    email: user.email
+                }
+                fetch('http://localhost:5001/jwt', {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify(validUser)
                 })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log('response ??', data.token)
+                        localStorage.setItem('kids-paradise-access', data.token)
+                        navigate(from, { replace: true })
+                    })
+                form.reset();
             })
             .catch(error => {
                 console.log(error.message);
@@ -49,6 +71,7 @@ const Login = () => {
                     showConfirmButton: false,
                     timer: 1500
                 })
+                navigate(from, { replace: true })
             })
             .catch(error => {
                 console.log(error.message);
@@ -80,7 +103,7 @@ const Login = () => {
     return (
         <div className='flex w-full'>
             <div className=' w-1/2'>
-                <img src={login} alt="" />
+                <img className='w-full h-full' src={login} alt="" />
             </div>
             <div className='w-1/2 bg-green-400'>
                 <div className='max-w-xl mx-auto mt-10 '>
@@ -108,7 +131,7 @@ const Login = () => {
                             <p className='text-lg text-yellow-600 hover:underline' onClick={handlePasswordReset}>Forget Password</p>
                         </div>
                         <input className='btn btn-info text-white text-xl font-semibold text-center my-10 w-full shadow-xl' type="submit" value="Login" />
-                        <p className='text-white text-center text-lg'>New to Kids Paradise ? Please <Link className='text-yellow-700 text-xl font-semibold hover:underline' to="/sign-up">Sign Up</Link></p>
+                        <p className='text-white text-center text-lg'>New to Kids Paradise ? Please <Link className='text-yellow-700 text-xl font-semibold hover:underline' to="/signUp">Sign Up</Link></p>
                     </form>
                     <div className="divider text-white">OR</div>
                     <button className="btn w-full btn-outline text-black bg-slate-100 border-0 text-xl hover:bg-white shadow-xl mt-14" onClick={handleGoogle}><FaGoogle className='w-6 h-6 text-blue-500 mr-2' /> Login with Google</button>
