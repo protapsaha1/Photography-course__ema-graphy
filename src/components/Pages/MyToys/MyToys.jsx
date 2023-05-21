@@ -8,7 +8,6 @@ const MyToys = () => {
     useTitle('My Toys')
     const toys = useLoaderData();
     const [allToys, setAllToys] = useState(toys);
-    // const url = ``
 
     return (
         <div className="bg-white py-10 px-10">

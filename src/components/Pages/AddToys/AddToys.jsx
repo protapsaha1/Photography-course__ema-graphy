@@ -33,7 +33,7 @@ const AddToys = () => {
         }
 
         // console.log(toyData)
-        fetch('http://localhost:5001/allToys', {
+        fetch('https://kids-toys-websites-server-protapsaha1.vercel.app/allToys', {
             method: "POST",
             headers: {
                 "content-type": "application/json"

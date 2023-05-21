@@ -59,6 +59,27 @@ const UserContext = ({ children }) => {
         const unSubscribe = onAuthStateChanged(auth, loggedUser => {
             setUser(loggedUser);
             setLoading(false);
+            if (loggedUser && loggedUser.email) {
+                const validUser = {
+                    email: loggedUser.email
+                }
+                fetch('https://kids-toys-websites-server-protapsaha1.vercel.app/jwt', {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify(validUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log('response ??', data.token)
+                        localStorage.setItem('kids-paradise-access', data.token)
+                    })
+            }
+            else {
+                localStorage.removeItem('kids-paradise-access');
+            }
+
         })
         return () => {
             unSubscribe();

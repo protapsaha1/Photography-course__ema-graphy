@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useContext, useState } from "react";
 import Toy from "../Toy/Toy";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import useTitle from "../../CustomHook/useTitle";
-// import { UserProvider } from "../../Hook/ContextProvider/UserContext";useContext, 
+import { UserProvider } from "../../Hook/ContextProvider/UserContext";
 
 const AllToys = () => {
     useTitle('All Toys')
-    // const { setSpinner } = useContext(UserProvider)
+    const navigate = useNavigate();
+    const { user } = useContext(UserProvider)
     const [allToys, setAllToys] = useState([]);
-    // const [toys, setToys] = useState([...allToys])
     const { totalToys } = useLoaderData();
     // const [spinner, setSpinner] = useState(true);
     const [currentPage, setCurrentPage] = useState(0);
@@ -20,16 +20,29 @@ const AllToys = () => {
     const totalPage = [...Array(page).keys()];
 
     const options = [5, 10, 15, 20, 25, 30];
-
+    const userEmail = user?.email;
+    // console.log(userEmail)
 
     useEffect(() => {
-        fetch(`http://localhost:5001/allToys?page=${currentPage}&limit=${productPerPage}`)
+        fetch(`https://kids-toys-websites-server-protapsaha1.vercel.app/allToys?page=${currentPage}&limit=${productPerPage}&email=${userEmail}`, {
+            method: "GET",
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('kids-paradise-access')}`
+            }
+        })
             .then(res => res.json())
-            .then(data => setAllToys(data))
+            .then(data => {
+                if (!data.error) {
+                    setAllToys(data)
+                }
+                else {
+                    navigate('/')
+                }
+            })
 
 
 
-    }, [currentPage, productPerPage]);
+    }, [currentPage, productPerPage, navigate, userEmail]);
 
     const handlePagination = presentPage => {
         setCurrentPage(presentPage)

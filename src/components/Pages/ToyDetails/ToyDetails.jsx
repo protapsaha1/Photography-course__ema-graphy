@@ -6,8 +6,8 @@ import useTitle from "../../CustomHook/useTitle";
 const ToyDetails = () => {
     useTitle('Toy Details')
     const toysDetails = useLoaderData();
-    console.log(toysDetails)
     const { ToyName, ToyPhoto, ToyPrice, SellerName, ToyDetails, ToyRating, ToyQuantity, sellerEmail } = toysDetails;
+    
     const handleBack = () => {
         window.history.back()
     };

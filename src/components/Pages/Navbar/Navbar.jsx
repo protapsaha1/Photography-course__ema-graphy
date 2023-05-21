@@ -5,6 +5,10 @@ import { UserProvider } from "../../Hook/ContextProvider/UserContext";
 
 const Navbar = () => {
     const { user, logOut } = useContext(UserProvider);
+    // useEffect(()=>{
+    //     fetch(`http://localhost:5001/allToys?search=${}`), useEffect 
+    // },[])
+
     const routeLinks = <>
         <li className="mx-3 hover:text-rose-600"><ActiveLink to="/">Home</ActiveLink></li>
         <li className="mx-3 hover:text-rose-600"><ActiveLink to="/allToys">All Toys</ActiveLink></li>
@@ -21,7 +25,7 @@ const Navbar = () => {
     const handleSignOut = () => {
         logOut()
             .then(() => {
-                localStorage.removeItem('kids-paradise-access');
+
             })
             .catch(() => { })
     }

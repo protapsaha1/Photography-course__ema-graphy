@@ -25,28 +25,14 @@ const Login = () => {
         loginUserByEmail(email, password)
             .then(result => {
                 const user = result.user;
+                console.log(user)
                 Swal.fire({
                     icon: 'success',
                     title: 'Login successful',
                     showConfirmButton: false,
                     timer: 1500
                 });
-                const validUser = {
-                    email: user.email
-                }
-                fetch('http://localhost:5001/jwt', {
-                    method: "POST",
-                    headers: {
-                        "content-type": "application/json"
-                    },
-                    body: JSON.stringify(validUser)
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        console.log('response ??', data.token)
-                        localStorage.setItem('kids-paradise-access', data.token)
-                        navigate(from, { replace: true })
-                    })
+                navigate(from, { replace: true })
                 form.reset();
             })
             .catch(error => {
