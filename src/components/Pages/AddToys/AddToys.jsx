@@ -11,8 +11,8 @@ const AddToys = () => {
         const form = event.target;
         const name = form.name.value;
         const photo = form.photo.value;
-        const price = form.price.value;
-        const rating = form.rating.value;
+        const price = parseFloat(form.price.value);
+        const rating = parseFloat(form.rating.value);
         const quantity = form.quantity.value;
         const description = form.description.value;
         const sellerName = user?.displayName;
@@ -33,7 +33,7 @@ const AddToys = () => {
         }
 
         // console.log(toyData)
-        fetch('https://kids-toys-websites-server-protapsaha1.vercel.app/allToys', {
+        fetch('https://kids-toys-websites-server.vercel.app/allToys', {
             method: "POST",
             headers: {
                 "content-type": "application/json"
@@ -86,7 +86,7 @@ const AddToys = () => {
                                         <span>Toy Price</span>
                                     </label>
                                     <br />
-                                    <input type="text" name="price" defaultValue='$' placeholder="Toy Price" className="input input-bordered w-full" />
+                                    <input type="text" name="price" placeholder="Toy Price" className="input input-bordered w-full" />
                                 </div>
                             </div>
                             {/* second part */}

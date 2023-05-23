@@ -32,7 +32,7 @@ const Toy = ({ toy }) => {
                                 </div>
                                 <div>
                                     <div className="font-bold text-2xl font-serif">{ToyName}</div>
-                                    <div className="text-lg opacity-50 font-serif">Price: {ToyPrice}</div>
+                                    <div className="text-lg opacity-50 font-serif">Price: ${ToyPrice}</div>
                                 </div>
                             </div>
                         </td>

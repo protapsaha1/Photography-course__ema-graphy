@@ -19,8 +19,8 @@ const UpdateToy = () => {
         console.log(price, quantity, description)
         const updatedToy = { ToyPrice: price, ToyQuantity: quantity, ToyDetails: description };
 
-        fetch(`https://kids-toys-websites-server-protapsaha1.vercel.app/allToys/${_id}`, {
-            method: "PUT",
+        fetch(`https://kids-toys-websites-server.vercel.app/allToys/${_id}`, {
+            method: "PATCH",
             headers: {
                 "content-type": "application/json"
             },

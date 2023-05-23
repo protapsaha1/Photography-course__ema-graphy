@@ -15,7 +15,7 @@ const ToysInMyToys = ({ toy, allToys, setAllToys }) => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://kids-toys-websites-server-protapsaha1.vercel.app/allToys/${_id}`, {
+                fetch(`https://kids-toys-websites-server.vercel.app/allToys/${_id}`, {
                     method: "DELETE"
                 })
                     .then(res => res.json)
@@ -63,7 +63,7 @@ const ToysInMyToys = ({ toy, allToys, setAllToys }) => {
                                 </div>
                                 <div>
                                     <div className="font-bold text-2xl font-serif">{ToyName}</div>
-                                    <div className="text-lg opacity-50 font-serif">Price: {ToyPrice}</div>
+                                    <div className="text-lg opacity-50 font-serif">Price: ${ToyPrice}</div>
                                 </div>
                             </div>
                         </td>

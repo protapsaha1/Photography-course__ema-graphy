@@ -1,48 +1,51 @@
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useState } from "react";
 import Toy from "../Toy/Toy";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import useTitle from "../../CustomHook/useTitle";
-import { UserProvider } from "../../Hook/ContextProvider/UserContext";
+// import { UserProvider } from "../../Hook/ContextProvider/UserContext";useContext, 
 
 const AllToys = () => {
-    useTitle('All Toys')
-    const navigate = useNavigate();
-    const { user } = useContext(UserProvider)
+    useTitle('All Toys');
+    // const { user } = useContext(UserProvider)
+    // const navigate = useNavigate();, useNavigate 
     const [allToys, setAllToys] = useState([]);
     const { totalToys } = useLoaderData();
-    // const [spinner, setSpinner] = useState(true);
+    // const [spinner, setSpinner] = useState(true);&email=${user?.email}
     const [currentPage, setCurrentPage] = useState(0);
     const [productPerPage, setProductPerPage] = useState(20);
 
 
+    console.log('is total', totalToys, 'my not ', allToys)
     const page = Math.ceil(totalToys / productPerPage);
     const totalPage = [...Array(page).keys()];
-
     const options = [5, 10, 15, 20, 25, 30];
-    const userEmail = user?.email;
-    // console.log(userEmail)
-
+    // const email = user?.email;
+    // console.log(email)
+    // const url =
+    //     console.log(url)
     useEffect(() => {
-        fetch(`https://kids-toys-websites-server-protapsaha1.vercel.app/allToys?page=${currentPage}&limit=${productPerPage}&email=${userEmail}`, {
-            method: "GET",
-            headers: {
-                authorization: `Bearer ${localStorage.getItem('kids-paradise-access')}`
-            }
-        })
+        fetch(`https://kids-toys-websites-server.vercel.app/allToys?page=${currentPage}&limit=${productPerPage}`//, {
+            // method: "GET",
+            // headers: {
+            //     authorization: `Bearer ${localStorage.getItem('kids-paradise-access')}`
+            // }
+            // }
+        )
             .then(res => res.json())
             .then(data => {
-                if (!data.error) {
-                    setAllToys(data)
-                }
-                else {
-                    navigate('/')
-                }
+                // console.log('my data', data)
+                // if (!data.error) {
+                setAllToys(data)
+                // }
+                // else {
+                //     navigate('/'), url, navigate
+                // }
             })
 
 
 
-    }, [currentPage, productPerPage, navigate, userEmail]);
+    }, [currentPage, productPerPage]);
 
     const handlePagination = presentPage => {
         setCurrentPage(presentPage)
@@ -67,7 +70,7 @@ const AllToys = () => {
 
     return (
         <div className="bg-slate-50">
-            {/* <h1>my toy : {allToys.length}</h1> */}
+            <h1>my toy : {allToys.length}</h1>
             <div className="mx-10 py-10">
 
                 {/* {setSpinner(false)} */}
@@ -103,6 +106,7 @@ const AllToys = () => {
                 </select>
                 <button className="btn btn-square border-0 text-white ms-2" onClick={handleNextPage}><FaAngleRight className="w-6 h-6" /></button>
             </div>
+
         </div>
     );
 };

@@ -6,7 +6,7 @@
 //     // const [categoryTabs, setCategoryTabs] = useState([]);
 
 //     // useEffect(() => {
-//     //     fetch(`https://kids-toys-websites-server-protapsaha1.vercel.app/allToys`)
+//     //     fetch(`http://localhost:5175//allToys`)
 //     //         .then(res => res.json())
 //     //         .then(data => setCategoryTabs(data))
 //     // }, []);
